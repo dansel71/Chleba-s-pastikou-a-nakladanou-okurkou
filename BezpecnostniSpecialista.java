@@ -1,37 +1,32 @@
-import java.util.HashMap;
+import java.util.Map;
 
 public class BezpecnostniSpecialista extends Zamestnanec {
 
     public BezpecnostniSpecialista(String jmeno, String prijmeni, int rokNarozeni) {
-        super(jmeno, prijmeni, rokNarozeni);
+        super(jmeno, prijmeni, rokNarozeni, SkupinyZamestnancu.BEZPECNOSTNI_SPECIALISTA);
     }
 
-    
-    public void spustDovednost(HashMap<Integer, Zamestnanec> vsichni) {
-        HashMap<Integer, String> spol = getSpolupracovnici();
-        if (spol.size() == 0) {
-            System.out.println("Rizzikove skore: 0 (zadni spolupracovnici)");
-            return;
-        }
-
-        int pocet = spol.size();
-        int soucet = 0;
-        for (String uroven : spol.values()) {
-            if (uroven.equals("spatna")) {
-                soucet += 3;
-            } else if (uroven.equals("prumerna")) {
-                soucet += 2;
-            } else {
-                soucet += 1;
-            }
-        }
-
-        double prumernaKvalita = (double) soucet / pocet;
-        double skore = pocet * prumernaKvalita * 10;
-        System.out.println("Rizikove skore: " + skore + " (pocet: " + pocet + ", prumerna kvalita: " + prumernaKvalita + ")");
+    public BezpecnostniSpecialista(int id, String jmeno, String prijmeni, int rokNarozeni) {
+        super(id, jmeno, prijmeni, rokNarozeni, SkupinyZamestnancu.BEZPECNOSTNI_SPECIALISTA);
     }
 
-    
+    @Override
+    public String spustDovednost(Map<Integer, Zamestnanec> vsichni) {
+        if (getSpolupracovnici().isEmpty()) {
+            return "Rizikové skóre: 0 (žádní spolupracovníci)";
+        }
+
+        int pocet = getSpolupracovnici().size();
+        double prumernaKvalita = getPrumernaKvalita();
+        double sance = 4.0 - prumernaKvalita;
+        double skore = pocet * sance * 10.0;
+        String riziko = skore < 25 ? "nízké" : skore < 60 ? "střední" : "vysoké";
+
+        return "Rizikové skóre: " + String.format("%.2f", skore) + " | riziko: " + riziko +
+                " | počet spolupracovníků: " + pocet + " | průměrná kvalita: " + String.format("%.2f", prumernaKvalita);
+    }
+
+    @Override
     public String toString() {
         return "BezpecnostniSpecialista";
     }

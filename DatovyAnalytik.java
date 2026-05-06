@@ -1,44 +1,45 @@
-import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class DatovyAnalytik extends Zamestnanec {
 
     public DatovyAnalytik(String jmeno, String prijmeni, int rokNarozeni) {
-        super(jmeno, prijmeni, rokNarozeni);
+        super(jmeno, prijmeni, rokNarozeni, SkupinyZamestnancu.DATOVY_ANALYTIK);
     }
 
-    
-    public void spustDovednost(HashMap<Integer, Zamestnanec> vsichni) {
-        int nejlepsiKolegaId = -1;
-        int maxSpolecnych = 0;
+    public DatovyAnalytik(int id, String jmeno, String prijmeni, int rokNarozeni) {
+        super(id, jmeno, prijmeni, rokNarozeni, SkupinyZamestnancu.DATOVY_ANALYTIK);
+    }
 
-        for (int kolegaId : getSpolupracovnici().keySet()) {
+    @Override
+    public String spustDovednost(Map<Integer, Zamestnanec> vsichni) {
+        Set<Integer> moji = getSpolupracovnici().keySet();
+        Zamestnanec best = null;
+        int maxSpolecnych = -1;
+
+        for (Integer kolegaId : moji) {
             Zamestnanec kolega = vsichni.get(kolegaId);
             if (kolega == null) {
                 continue;
             }
-
-            int spolecnych = 0;
-            for (int kk : kolega.getSpolupracovnici().keySet()) {
-                if (getSpolupracovnici().containsKey(kk)) {
-                    spolecnych++;
-                }
-            }
-            if (spolecnych > maxSpolecnych) {
-                maxSpolecnych = spolecnych;
-                nejlepsiKolegaId = kolegaId;
+            Set<Integer> common = new HashSet<>(moji);
+            common.retainAll(kolega.getSpolupracovnici().keySet());
+            common.remove(getId());
+            common.remove(kolega.getId());
+            if (common.size() > maxSpolecnych) {
+                maxSpolecnych = common.size();
+                best = kolega;
             }
         }
 
-        if (nejlepsiKolegaId == -1) {
-            System.out.println("Zadni spolecni spolupracovnici nenalezeni.");
-        } else {
-            Zamestnanec nej = vsichni.get(nejlepsiKolegaId);
-            System.out.println("Nejvice spolecnych spolupracovniku (" + maxSpolecnych +
-                    ") s: " + nej.getJmeno() + " " + nej.getPrijmeni());
+        if (best == null) {
+            return "Analytik nemá žádného existujícího spolupracovníka.";
         }
+        return "Nejvíce společných spolupracovníků má s: " + best.getJmeno() + " " + best.getPrijmeni() + " (" + maxSpolecnych + ")";
     }
 
-    
+    @Override
     public String toString() {
         return "DatovyAnalytik";
     }

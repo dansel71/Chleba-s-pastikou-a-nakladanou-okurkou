@@ -1,0 +1,26 @@
+public enum SkupinyZamestnancu {
+    DATOVY_ANALYTIK("DatovĂ˝ analytik"),
+    BEZPECNOSTNI_SPECIALISTA("BezpeÄŤnostnĂ­ specialista");
+
+    private final String popis;
+
+    SkupinyZamestnancu(String popis) {
+        this.popis = popis;
+    }
+
+    public String getPopis() {
+        return popis;
+    }
+
+    public String toString() {
+        return popis;
+    }
+
+    public static SkupinyZamestnancu fromMenu(int volba) {
+        return switch (volba) {
+            case 1 -> DATOVY_ANALYTIK;
+            case 2 -> BEZPECNOSTNI_SPECIALISTA;
+            default -> throw new IllegalArgumentException("NeplatnĂˇ skupina zamÄ›stnancĹŻ.");
+        };
+    }
+}
