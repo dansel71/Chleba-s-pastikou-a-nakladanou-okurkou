@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "ConsoleApp",
+            "request": "launch",
+            "mainClass": "ConsoleApp",
+            "projectName": "Chleba-s-pastikou-a-nakladanou-okurkou_e223fdc7",
+            "classPaths": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/lib/sqlite-jdbc-3.51.3.0.jar"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}",
+            "classPaths": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/lib/sqlite-jdbc-3.51.3.0.jar"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

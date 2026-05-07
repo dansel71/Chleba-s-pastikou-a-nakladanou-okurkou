@@ -1,6 +1,6 @@
 public enum SkupinyZamestnancu {
-    DATOVY_ANALYTIK("DatovĂ˝ analytik"),
-    BEZPECNOSTNI_SPECIALISTA("BezpeÄŤnostnĂ­ specialista");
+    DATOVY_ANALYTIK("Datovy analytik"),
+    BEZPECNOSTNI_SPECIALISTA("Bezpecnostni specialista");
 
     private final String popis;
 
@@ -20,7 +20,7 @@ public enum SkupinyZamestnancu {
         return switch (volba) {
             case 1 -> DATOVY_ANALYTIK;
             case 2 -> BEZPECNOSTNI_SPECIALISTA;
-            default -> throw new IllegalArgumentException("NeplatnĂˇ skupina zamÄ›stnancĹŻ.");
+            default -> throw new IllegalArgumentException("Neplatna skupina zamestnancu.");
         };
     }
 }

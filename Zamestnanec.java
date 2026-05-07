@@ -17,27 +17,27 @@ public abstract class Zamestnanec {
 
     protected Zamestnanec(String jmeno, String prijmeni, int rokNarozeni, SkupinyZamestnancu skupina) {
         this.id = pocitadloID++;
-        this.jmeno = validateText(jmeno, "jmĂ©no");
-        this.prijmeni = validateText(prijmeni, "pĹ™Ă­jmenĂ­");
+        this.jmeno = validateText(jmeno, "jmeno");
+        this.prijmeni = validateText(prijmeni, "prijmeni");
         this.rokNarozeni = validateRok(rokNarozeni);
-        this.skupina = Objects.requireNonNull(skupina, "Skupina nesmĂ­ bĂ˝t null.");
+        this.skupina = Objects.requireNonNull(skupina, "Skupina nesmi byt null.");
     }
 
     protected Zamestnanec(int id, String jmeno, String prijmeni, int rokNarozeni, SkupinyZamestnancu skupina) {
         if (id <= 0) {
-            throw new IllegalArgumentException("ID musĂ­ bĂ˝t kladnĂ©.");
+            throw new IllegalArgumentException("ID musi byt kladne.");
         }
         this.id = id;
         pocitadloID = Math.max(pocitadloID, id + 1);
-        this.jmeno = validateText(jmeno, "jmĂ©no");
-        this.prijmeni = validateText(prijmeni, "pĹ™Ă­jmenĂ­");
+        this.jmeno = validateText(jmeno, "jmeno");
+        this.prijmeni = validateText(prijmeni, "prijmeni");
         this.rokNarozeni = validateRok(rokNarozeni);
-        this.skupina = Objects.requireNonNull(skupina, "Skupina nesmĂ­ bĂ˝t null.");
+        this.skupina = Objects.requireNonNull(skupina, "Skupina nesmi byt null.");
     }
 
     private static String validateText(String text, String fieldName) {
         if (text == null || text.isBlank()) {
-            throw new IllegalArgumentException(fieldName + " nesmĂ­ bĂ˝t prĂˇzdnĂ©.");
+            throw new IllegalArgumentException(fieldName + " nesmi byt prazdne.");
         }
         return text.trim();
     }
@@ -45,7 +45,7 @@ public abstract class Zamestnanec {
     private static int validateRok(int rok) {
         int currentYear = Year.now().getValue();
         if (rok < 1900 || rok > currentYear) {
-            throw new IllegalArgumentException("Rok narozenĂ­ musĂ­ bĂ˝t mezi 1900 a " + currentYear + ".");
+            throw new IllegalArgumentException("Rok narozeni musi byt mezi 1900 a " + currentYear + ".");
         }
         return rok;
     }
@@ -54,9 +54,9 @@ public abstract class Zamestnanec {
 
     public void pridejSpolupracovnika(int kolegaId, UrovenSpoluprace uroven) {
         if (kolegaId == id) {
-            throw new IllegalArgumentException("ZamÄ›stnanec nemĹŻĹľe spolupracovat sĂˇm se sebou.");
+            throw new IllegalArgumentException("Zamestnanec nemuze spolupracovat sam se sebou.");
         }
-        spolupracovnici.put(kolegaId, Objects.requireNonNull(uroven, "ĂšroveĹ spoluprĂˇce nesmĂ­ bĂ˝t null."));
+        spolupracovnici.put(kolegaId, Objects.requireNonNull(uroven, "Uroven spoluprace nesmi byt null."));
     }
 
     public void odeberSpolupracovnika(int kolegaId) {
@@ -64,15 +64,15 @@ public abstract class Zamestnanec {
     }
 
     public void vypisInfo() {
-        System.out.println(getZakladniInfo() + " | poÄŤet spolupracovnĂ­kĹŻ: " + spolupracovnici.size());
+        System.out.println(getZakladniInfo() + " | pocet spolupracovniku: " + spolupracovnici.size());
     }
 
     public String getZakladniInfo() {
-        return "ID: " + id + " | " + jmeno + " " + prijmeni + " | rok narozenĂ­: " + rokNarozeni + " | skupina: " + skupina.getPopis();
+        return "ID: " + id + " | " + jmeno + " " + prijmeni + " | rok narozeni: " + rokNarozeni + " | skupina: " + skupina.getPopis();
     }
 
     public String getStatistikySpoluprace() {
-        return "poÄŤet vazeb: " + spolupracovnici.size() + " | prĹŻmÄ›r kvality: " + String.format("%.2f", getPrumernaKvalita());
+        return "pocet vazeb: " + spolupracovnici.size() + " | prumer kvality: " + String.format("%.2f", getPrumernaKvalita());
     }
 
     public double getPrumernaKvalita() {

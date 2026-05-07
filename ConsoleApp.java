@@ -17,9 +17,9 @@ public class ConsoleApp {
     private void run() {
         try {
             sql.nactiVse(databaze);
-            System.out.println("SQL data načtena.");
+            System.out.println("SQL data nactena.");
         } catch (Exception e) {
-            System.out.println("SQL není dostupné nebo se nedaří načíst: " + e.getMessage());
+            System.out.println("SQL neni dostupne nebo se nedari nacist: " + e.getMessage());
         }
 
         boolean running = true;
@@ -38,7 +38,7 @@ public class ConsoleApp {
                     case 9 -> ulozZamestnanceDoSouboru();
                     case 10 -> nactiZamestnanceZeSouboru();
                     case 0 -> running = false;
-                    default -> System.out.println("Neplatná volba.");
+                    default -> System.out.println("Neplatna volba.");
                 }
             } catch (Exception e) {
                 System.out.println("Chyba: " + e.getMessage());
@@ -47,53 +47,53 @@ public class ConsoleApp {
 
         try {
             sql.ulozVse(databaze);
-            System.out.println("Data uložena do SQL zálohy.");
+            System.out.println("Data ulozena do SQL zalohy.");
         } catch (SQLException e) {
-            System.out.println("SQL uložení selhalo: " + e.getMessage());
+            System.out.println("SQL ulozeni selhalo: " + e.getMessage());
         }
     }
 
     private void printMenu() {
         System.out.println();
-        System.out.println("1) Přidat zaměstnance");
-        System.out.println("2) Přidat spolupráci");
-        System.out.println("3) Odebrat zaměstnance");
-        System.out.println("4) Vyhledat zaměstnance dle ID");
-        System.out.println("5) Spustit dovednost zaměstnance");
-        System.out.println("6) Abecední výpis ve skupinách");
+        System.out.println("1) Pridat zamestnance");
+        System.out.println("2) Pridat spolupraci");
+        System.out.println("3) Odebrat zamestnance");
+        System.out.println("4) Vyhledat zamestnance dle ID");
+        System.out.println("5) Spustit dovednost zamestnance");
+        System.out.println("6) Abecedni vypis ve skupinach");
         System.out.println("7) Statistiky");
-        System.out.println("8) Počet zaměstnanců ve skupinách");
-        System.out.println("9) Uložit zaměstnance do souboru");
-        System.out.println("10) Načíst zaměstnance ze souboru");
+        System.out.println("8) Pocet zamestnancu ve skupinach");
+        System.out.println("9) Ulozit zamestnance do souboru");
+        System.out.println("10) Nacist zamestnance ze souboru");
         System.out.println("0) Konec");
     }
 
     private void pridejZamestnance() {
         SkupinyZamestnancu skupina = readSkupina();
-        String jmeno = readText("Jméno: ");
-        String prijmeni = readText("Příjmení: ");
-        int rokNarozeni = readInt("Rok narození: ");
+        String jmeno = readText("Jmeno: ");
+        String prijmeni = readText("Prijmeni: ");
+        int rokNarozeni = readInt("Rok narozeni: ");
         Zamestnanec z = databaze.pridejZamestnance(skupina, jmeno, prijmeni, rokNarozeni);
-        System.out.println("Přidán zaměstnanec: " + z.getZakladniInfo());
+        System.out.println("Pridan zamestnanec: " + z.getZakladniInfo());
     }
 
     private void pridejSpolupraci() {
-        int id = readInt("ID zaměstnance: ");
+        int id = readInt("ID zamestnance: ");
         int kolegaId = readInt("ID kolegy: ");
-        System.out.println("1) špatná, 2) průměrná, 3) dobrá");
-        UrovenSpoluprace uroven = UrovenSpoluprace.fromMenu(readInt("Úroveň spolupráce: "));
+        System.out.println("1) spatna, 2) prumerna, 3) dobra");
+        UrovenSpoluprace uroven = UrovenSpoluprace.fromMenu(readInt("Uroven spoluprace: "));
         databaze.pridejSpolupraci(id, kolegaId, uroven);
-        System.out.println("Spolupráce přidána.");
+        System.out.println("Spoluprace pridana.");
     }
 
     private void odeberZamestnance() {
-        int id = readInt("ID zaměstnance k odebrání: ");
+        int id = readInt("ID zamestnance k odebrani: ");
         Zamestnanec z = databaze.odeberZamestnance(id);
-        System.out.println("Odebrán: " + z.getZakladniInfo());
+        System.out.println("Odebran: " + z.getZakladniInfo());
     }
 
     private void najdiZamestnance() {
-        Zamestnanec z = databaze.getOrThrow(readInt("ID zaměstnance: "));
+        Zamestnanec z = databaze.getOrThrow(readInt("ID zamestnance: "));
         System.out.println(z.getZakladniInfo());
         System.out.println(z.getStatistikySpoluprace());
         z.getSpolupracovnici().forEach((kolegaId, uroven) ->
@@ -101,7 +101,7 @@ public class ConsoleApp {
     }
 
     private void spustDovednost() {
-        int id = readInt("ID zaměstnance: ");
+        int id = readInt("ID zamestnance: ");
         System.out.println(databaze.vykonejDovednost(id));
     }
 
@@ -115,10 +115,10 @@ public class ConsoleApp {
     }
 
     private void vypisStatistiky() {
-        System.out.println("Převažující kvalita spolupráce: " + databaze.prevazujiciKvalitaSpoluprace());
-        System.out.println("Zaměstnanec s nejvíce vazbami: " + databaze.zamestnanecSNajviceVazbami()
+        System.out.println("Prevazujici kvalita spoluprace: " + databaze.prevazujiciKvalitaSpoluprace());
+        System.out.println("Zamestnanec s nejvice vazbami: " + databaze.zamestnanecSNajviceVazbami()
                 .map(z -> z.getZakladniInfo() + " | " + z.getStatistikySpoluprace())
-                .orElse("žádný zaměstnanec"));
+                .orElse("zadny zamestnanec"));
     }
 
     private void vypisPocetVeSkupinach() {
@@ -129,20 +129,20 @@ public class ConsoleApp {
     }
 
     private void ulozZamestnanceDoSouboru() throws Exception {
-        Zamestnanec z = databaze.getOrThrow(readInt("ID zaměstnance: "));
+        Zamestnanec z = databaze.getOrThrow(readInt("ID zamestnance: "));
         ukladani.uloz(z, Path.of(readText("Cesta ke souboru: ")));
-        System.out.println("Zaměstnanec uložen do souboru.");
+        System.out.println("Zamestnanec ulozen do souboru.");
     }
 
     private void nactiZamestnanceZeSouboru() throws Exception {
         Zamestnanec z = ukladani.nacti(Path.of(readText("Cesta k souboru: ")));
         databaze.pridejNactenehoZamestnance(z);
-        System.out.println("Načteno: " + z.getZakladniInfo());
+        System.out.println("Nacteno: " + z.getZakladniInfo());
     }
 
     private SkupinyZamestnancu readSkupina() {
-        System.out.println("1) Datový analytik");
-        System.out.println("2) Bezpečnostní specialista");
+        System.out.println("1) Datovy analytik");
+        System.out.println("2) Bezpecnostni specialista");
         return SkupinyZamestnancu.fromMenu(readInt("Skupina: "));
     }
 

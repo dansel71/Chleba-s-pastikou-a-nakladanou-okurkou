@@ -1,7 +1,7 @@
 public enum UrovenSpoluprace {
-    SPATNA(1, "ĹˇpatnĂˇ"),
-    PRUMERNA(2, "prĹŻmÄ›rnĂˇ"),
-    DOBRA(3, "dobrĂˇ");
+    SPATNA(1, "spatna"),
+    PRUMERNA(2, "prumerna"),
+    DOBRA(3, "dobra");
 
     private final int hodnota;
     private final String popis;
@@ -28,18 +28,18 @@ public enum UrovenSpoluprace {
             case 1 -> SPATNA;
             case 2 -> PRUMERNA;
             case 3 -> DOBRA;
-            default -> throw new IllegalArgumentException("NeplatnĂˇ ĂşroveĹ spoluprĂˇce.");
+            default -> throw new IllegalArgumentException("Neplatna uroven spoluprace.");
         };
     }
 
     public static UrovenSpoluprace fromString(String text) {
-        if (text == null) throw new IllegalArgumentException("ĂšroveĹ spoluprĂˇce nesmĂ­ bĂ˝t null.");
+        if (text == null) throw new IllegalArgumentException("Uroven spoluprace nesmi byt null.");
         String normalized = text.trim().toLowerCase();
         return switch (normalized) {
-            case "ĹˇpatnĂˇ", "spatna" -> SPATNA;
-            case "prĹŻmÄ›rnĂˇ", "prumerna" -> PRUMERNA;
-            case "dobrĂˇ", "dobra" -> DOBRA;
-            default -> throw new IllegalArgumentException("NeznĂˇmĂˇ ĂşroveĹ spoluprĂˇce: " + text);
+            case "spatna" -> SPATNA;
+            case "prumerna" -> PRUMERNA;
+            case "dobra" -> DOBRA;
+            default -> throw new IllegalArgumentException("Neznama uroven spoluprace: " + text);
         };
     }
 }

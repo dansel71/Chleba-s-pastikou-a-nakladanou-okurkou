@@ -26,7 +26,7 @@ public class Databaze {
     public Zamestnanec odeberZamestnance(int id) {
         Zamestnanec removed = zamestnanci.remove(id);
         if (removed == null) {
-            throw new NoSuchElementException("Zaměstnanec s ID " + id + " neexistuje.");
+            throw new NoSuchElementException("Zamestnanec s ID " + id + " neexistuje.");
         }
         for (Zamestnanec z : zamestnanci.values()) {
             z.odeberSpolupracovnika(id);
@@ -41,7 +41,7 @@ public class Databaze {
     public Zamestnanec getOrThrow(int id) {
         Zamestnanec z = zamestnanci.get(id);
         if (z == null) {
-            throw new NoSuchElementException("Zaměstnanec s ID " + id + " neexistuje.");
+            throw new NoSuchElementException("Zamestnanec s ID " + id + " neexistuje.");
         }
         return z;
     }
@@ -69,7 +69,7 @@ public class Databaze {
         return counts.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(e -> e.getKey().getPopis() + " (" + e.getValue() + ")")
-                .orElse("žádná spolupráce");
+                .orElse("zadna spoluprace");
     }
 
     public Optional<Zamestnanec> zamestnanecSNajviceVazbami() {

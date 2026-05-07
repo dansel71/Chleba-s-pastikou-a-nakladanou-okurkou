@@ -34,9 +34,9 @@ public class DatovyAnalytik extends Zamestnanec {
         }
 
         if (best == null) {
-            return "Analytik nemá žádného existujícího spolupracovníka.";
+            return "Analytik nema zadneho existujiciho spolupracovnika.";
         }
-        return "Nejvíce společných spolupracovníků má s: " + best.getJmeno() + " " + best.getPrijmeni() + " (" + maxSpolecnych + ")";
+        return "Nejvice spolecnych spolupracovniku ma s: " + best.getJmeno() + " " + best.getPrijmeni() + " (" + maxSpolecnych + ")";
     }
 
     @Override

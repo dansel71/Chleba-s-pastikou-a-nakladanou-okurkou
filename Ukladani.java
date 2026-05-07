@@ -24,7 +24,7 @@ public class Ukladani {
         String obsah = Files.readString(cesta).trim();
         String[] casti = obsah.split(";", -1);
         if (casti.length < 5) {
-            throw new IOException("Soubor nemĂˇ sprĂˇvnĂ˝ formĂˇt.");
+            throw new IOException("Soubor nema spravny format.");
         }
         int id = Integer.parseInt(casti[0]);
         SkupinyZamestnancu skupina = SkupinyZamestnancu.valueOf(casti[1]);

@@ -13,17 +13,17 @@ public class BezpecnostniSpecialista extends Zamestnanec {
     @Override
     public String spustDovednost(Map<Integer, Zamestnanec> vsichni) {
         if (getSpolupracovnici().isEmpty()) {
-            return "Rizikové skóre: 0 (žádní spolupracovníci)";
+            return "Rizikove skore: 0 (zadni spolupracovnici)";
         }
 
         int pocet = getSpolupracovnici().size();
         double prumernaKvalita = getPrumernaKvalita();
         double sance = 4.0 - prumernaKvalita;
         double skore = pocet * sance * 10.0;
-        String riziko = skore < 25 ? "nízké" : skore < 60 ? "střední" : "vysoké";
+        String riziko = skore < 25 ? "nizke" : skore < 60 ? "stredni" : "vysoke";
 
-        return "Rizikové skóre: " + String.format("%.2f", skore) + " | riziko: " + riziko +
-                " | počet spolupracovníků: " + pocet + " | průměrná kvalita: " + String.format("%.2f", prumernaKvalita);
+        return "Rizikove skore: " + String.format("%.2f", skore) + " | riziko: " + riziko +
+                " | pocet spolupracovniku: " + pocet + " | prumerna kvalita: " + String.format("%.2f", prumernaKvalita);
     }
 
     @Override
